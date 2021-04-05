@@ -2,8 +2,8 @@ package org.vaadin.example
 
 import org.vaadin.example.view.BorderedField
 
-class VerifyFields(val lastName: BorderedField,
-                   val firstName: BorderedField
+class ValidatingFields(val lastName: BorderedField,
+                       val firstName: BorderedField
 ) {
     var lastNameOk: Boolean=false
     var firstNameOk: Boolean=false
@@ -26,9 +26,8 @@ class VerifyFields(val lastName: BorderedField,
     }
 
     fun errorMessage(): String {
-        return if(!lastNameOk)
-            "Last Name is required"
-        else
-            ""
+        return (if(!lastNameOk) "Last Name is required\n" else "")+
+               (if(!firstNameOk) "First Name is required" else "")
+
     }
 }

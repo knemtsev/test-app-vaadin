@@ -7,8 +7,6 @@ import com.vaadin.flow.component.dependency.CssImport
 import com.vaadin.flow.component.notification.Notification
 import com.vaadin.flow.component.orderedlayout.VerticalLayout
 import com.vaadin.flow.component.page.Push
-import com.vaadin.flow.component.textfield.TextArea
-import com.vaadin.flow.component.textfield.TextField
 import com.vaadin.flow.router.Route
 import com.vaadin.flow.server.PWA
 import org.vaadin.example.data.Db
@@ -33,7 +31,7 @@ class MainView : VerticalLayout() {
 
     val db=Db()
     val personDao=PersonDao(db)
-    val all=personDao.all()
+    private val all=personDao.all()
 
     init {
         if(all.isNullOrEmpty())
@@ -44,13 +42,10 @@ class MainView : VerticalLayout() {
             }
         }
 
-        textPhone.isRequired=false
-
-        val greetService = GreetService()
         val button = Button(
             "Save"
         ) { e: ClickEvent<Button?>? ->
-            val vf=VerifyFields(textLastName,textFirstName)
+            val vf=ValidatingFields(textLastName,textFirstName)
             if(vf.verify()) {
                 personDao.insert(Person(lastName = textLastName.value,
                     firstName = textFirstName.value,
